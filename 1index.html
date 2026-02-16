@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Editor | Visuales que Suenan</title>
+    <style>
+        /* --- CONFIGURACIÓN DE ESTILO (CAMBIA LOS COLORES AQUÍ) --- */
+        :root {
+            --bg-color: #050505;
+            --card-bg: rgba(255, 255, 255, 0.05); /* Vidrio oscuro */
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #888888;
+            --accent: #00ff88; /* Verde Matrix/Cyber */
+            --accent-glow: rgba(0, 255, 136, 0.4);
+            --gradient-1: #7928ca;
+            --gradient-2: #ff0080;
+        }
+
+        /* --- BASE --- */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(121, 40, 202, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 128, 0.15) 0%, transparent 40%);
+        }
+
+        /* --- BENTO GRID LAYOUT --- */
+        .bento-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+            grid-auto-rows: minmax(180px, auto);
+            gap: 20px;
+        }
+
+        /* --- TARJETAS GLASSMORPHISM --- */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 25px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 40px -10px var(--accent-glow);
+        }
+
+        /* TAMAÑOS DE TARJETAS (BENTO) */
+        .col-2 { grid-column: span 2; }
+        .col-3 { grid-column: span 3; }
+        .col-4 { grid-column: span 4; }
+        .row-2 { grid-row: span 2; }
+
+        /* --- TIPOGRAFÍA Y EFECTOS --- */
+        h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+
+        h2 { font-size: 1.5rem; margin: 0 0 10px 0; font-weight: 500; }
+        p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.5; margin: 0; }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+            border: 1px solid var(--card-border);
+        }
+
+        /* --- EFECTO GLITCH EN HOVER --- */
+        .glitch-text:hover {
+            animation: glitch-anim 0.3s infinite;
+            color: var(--accent);
+            cursor: default;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        /* --- VIDEOS --- */
+        .video-wrapper {
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            min-height: 200px;
+        }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* --- MÓVIL (RESPONSIVE) --- */
+        @media (max-width: 768px) {
+            .bento-container { grid-template-columns: 1fr; }
+            .col-2, .col-3, .col-4 { grid-column: span 1; }
+            h1 { font-size: 2.5rem; }
+            .row-2 { grid-row: span 1; height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bento-container">
+        
+        <div class="card col-2">
+            <div>
+                <span class="badge">DISPONIBLE PARA TRABAJAR 🟢</span>
+                <h1 class="glitch-text">TU NOMBRE</h1>
+                <p style="margin-top: 10px; font-size: 1.1rem; color: #ccc;">
+                    Visuales que suenan. Editor VFX & 3D Artist.
+                </p>
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="#" style="color:white; text-decoration:none; margin-right: 15px;">Instagram ↗</a>
+                <a href="#" style="color:white; text-decoration:none;">Email ↗</a>
+            </div>
+        </div>
+
+        <div class="card col-2 row-2" style="background: #000; padding: 0; border: none;">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/VIDEO_ID_SHOWREEL?controls=0&modestbranding=1" title="Showreel"></iframe>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Software</h2>
+            <ul style="padding-left: 20px; color: var(--text-dim); margin: 0;">
+                <li>After Effects</li>
+                <li>Blender 3D</li>
+                <li>Premiere Pro</li>
+                <li>Photoshop</li>
+            </ul>
+        </div>
+
+        <div class="card" style="justify-content: center; align-items: center; text-align: center;">
+            <h2 style="font-size: 2.5rem; color: var(--accent);">+50</h2>
+            <p>Proyectos Editados</p>
+        </div>
+
+        <div class="card col-2">
+            <span class="badge">VFX BREAKDOWN</span>
+            <div class="video-wrapper" style="height: 200px;">
+                <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" title="Proyecto 1"></iframe>
+            </div>
+            <h3 style="margin-top: 15px;">Travis Scott Style Edit</h3>
+        </div>
+
+        <div class="card col-2">
+            <span class="badge">3D ANIMATION</span>
+            <div class="video-wrapper" style="height: 200px;">
+                <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="Proyecto 2"></iframe>
+            </div>
+            <h3 style="margin-top: 15px;">Blender Room Render</h3>
+        </div>
+
+    </div>
+
+</body>
+</html>
