@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio Editor | Visuales que Suenan</title>
+    <title>Benja Edits | Visuales que Suenan</title>
     <style>
-        /* --- CONFIGURACIÓN DE ESTILO --- */
+        /* --- CONFIGURACIÓN DE ESTILO CYBERPUNK --- */
         :root {
             --bg-color: #050505;
-            --card-bg: rgba(255, 255, 255, 0.05); /* Vidrio oscuro */
-            --card-border: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.03); 
+            --card-border: rgba(255, 255, 255, 0.08);
             --text-main: #ffffff;
-            --text-dim: #888888;
-            --accent: #00ff88; /* Verde Matrix/Cyber */
-            --accent-glow: rgba(0, 255, 136, 0.4);
-            --gradient-1: #7928ca;
-            --gradient-2: #ff0080;
+            --text-dim: #999999;
+            --accent: #00ff88; 
+            --accent-glow: rgba(0, 255, 136, 0.3);
+            --secondary: #bc13fe;
         }
 
-        /* --- BASE --- */
+        html { scroll-behavior: smooth; }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
@@ -27,60 +27,62 @@
             padding: 0;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(121, 40, 202, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 0, 128, 0.15) 0%, transparent 40%);
+                radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(0, 255, 136, 0.08) 0%, transparent 50%);
         }
 
-        /* --- BENTO GRID LAYOUT (RESPONSIVO MÓVIL PRIMERO) --- */
-        .bento-container {
+        /* --- NAVEGACIÓN --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--card-border);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+        
+        .nav-links {
+            display: flex; gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-dim); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 80px auto 0; /* Espacio para el nav */
             padding: 20px;
-            display: grid;
-            gap: 20px;
-            /* Por defecto: 1 columna para celulares (Vertical) */
-            grid-template-columns: 1fr; 
-            grid-auto-rows: auto;
         }
 
-        /* Tablets (2 columnas) */
-        @media (min-width: 768px) {
-            .bento-container {
-                grid-template-columns: repeat(2, 1fr);
-                padding: 40px 20px;
-            }
+        /* --- BENTO GRID LAYOUT --- */
+        .bento-grid {
+            display: grid; gap: 20px;
+            grid-template-columns: 1fr; /* Móvil por defecto */
         }
 
-        /* PC / Monitores (4 columnas - Horizontal) */
-        @media (min-width: 1024px) {
-            .bento-container {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
+        @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .bento-grid { grid-template-columns: repeat(4, 1fr); } }
 
         /* --- TARJETAS GLASSMORPHISM --- */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 25px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
-            position: relative;
+            border-radius: 24px; padding: 25px;
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s ease; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: center;
         }
-
         .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 40px -10px var(--accent-glow);
+            transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 40px -10px var(--accent-glow);
         }
 
-        /* TAMAÑOS DE TARJETAS (BENTO) - Se activan solo en PC */
+        /* TAMAÑOS (PC) */
         @media (min-width: 1024px) {
             .col-2 { grid-column: span 2; }
             .col-3 { grid-column: span 3; }
@@ -88,132 +90,177 @@
             .row-2 { grid-row: span 2; }
         }
 
-        /* --- TIPOGRAFÍA Y EFECTOS --- */
-        h1 {
-            /* Texto fluido: se achica en celular y crece en PC */
-            font-size: clamp(2.5rem, 8vw, 3.5rem); 
-            margin: 0;
-            line-height: 1;
-            letter-spacing: -2px;
-        }
-
-        h2 { font-size: 1.5rem; margin: 0 0 10px 0; font-weight: 500; }
-        p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.5; margin: 0; }
+        /* --- TIPOGRAFÍA --- */
+        h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin: 0 0 10px; line-height: 1.1; letter-spacing: -1px; }
+        h2 { font-size: 2rem; margin: 40px 0 20px; color: var(--text-main); font-weight: 600; letter-spacing: -1px;}
+        h3 { font-size: 1.2rem; margin: 0 0 10px; color: var(--accent); }
+        p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; margin: 0; }
         
         .badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 50px;
-            background: rgba(255,255,255,0.1);
-            font-size: 0.75rem;
-            margin-bottom: 15px;
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
+            display: inline-block; padding: 6px 14px; border-radius: 50px;
+            background: rgba(0, 255, 136, 0.1); border: 1px solid var(--accent);
+            color: var(--accent); font-size: 0.75rem; font-weight: bold; margin-bottom: 15px; width: fit-content;
         }
 
-        /* --- EFECTO GLITCH EN HOVER --- */
-        .glitch-text:hover {
-            animation: glitch-anim 1.3s infinite;
-            color: var(--accent);
-            cursor: default;
+        /* --- BOTONES --- */
+        .btn {
+            display: inline-block; padding: 12px 24px; border-radius: 12px;
+            background: var(--accent); color: #000; text-decoration: none;
+            font-weight: bold; font-size: 0.95rem; transition: all 0.3s;
+            text-align: center; border: none; cursor: pointer;
         }
+        .btn:hover { background: #00cc6a; box-shadow: 0 0 20px var(--accent-glow); transform: scale(1.02); }
+        
+        .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--card-border); }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: var(--text-main); box-shadow: none; color: white;}
 
-        @keyframes glitch-anim {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
-        }
-
-        /* --- VIDEOS RESPONSIVOS --- */
-        .video-wrapper {
-            width: 100%;
-            /* El aspect-ratio evita que los videos se deformen y quita la necesidad de usar "height" fijos */
-            aspect-ratio: 16 / 9; 
-            border-radius: 16px;
-            overflow: hidden;
-            background: #000;
-        }
-
-        @media (min-width: 1024px) {
-            .video-wrapper.main-video {
-                height: 100%; /* Para que el Showreel ocupe toda la caja grande en PC */
-            }
-        }
-
+        /* --- VIDEOS --- */
+        .video-wrapper { width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: #000; margin-bottom: 15px; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- LINKS DE CONTACTO --- */
-        .contact-links {
-            margin-top: 20px;
-            display: flex;
-            flex-wrap: wrap; /* Si la pantalla es muy fina, los links bajan sin amontonarse */
-            gap: 15px;
-        }
-        .contact-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .contact-links a:hover {
-            color: var(--accent); /* Se ponen verde neón al pasar el mouse */
-        }
+        /* --- COMPONENTES EXTRAS --- */
+        .avatar { width: 50px; height: 50px; border-radius: 50%; background: #333; margin-right: 15px; object-fit: cover;}
+        .flex-center { display: flex; align-items: center; }
+        .stars { color: #ffd700; margin-bottom: 10px; font-size: 1.2rem;}
     </style>
 </head>
 <body>
 
-    <div class="bento-container">
+    <nav>
+        <div class="nav-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#portfolio">Portafolio</a>
+            <a href="#testimonios">Testimonios</a>
+        </div>
+    </nav>
+
+    <div class="container">
         
-        <div class="card col-2">
-            <div>
-                <span class="badge" style="color: #00ff88; border-color: #00ff88;">DISPONIBLE PARA TRABAJAR 🟢</span>
-                <h1 class="glitch-text">BENJA</h1>
-                <p style="margin-top: 10px; font-size: 1.1rem; color: #ccc;">
-                    Visuales que suenan. Editor VFX & 3D Artist.
+        <div id="inicio" class="bento-grid">
+            <div class="card col-3">
+                <span class="badge">DISPONIBLE PARA TRABAJAR 🟢</span>
+                <h1>Transformo videos aburridos en <br><span style="color: var(--accent);">piezas cinematográficas.</span></h1>
+                <p style="font-size: 1.1rem; max-width: 600px; margin-bottom: 25px;">
+                    Editor de video especializado en estética Urbana/Trap, VFX y 3D. Convierto tus ideas en experiencias visuales que conectan, retienen y generan resultados reales.
                 </p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="https://wa.me/51964593718" target="_blank" class="btn">Cotizar Proyecto</a>
+                    <a href="#portfolio" class="btn btn-outline">Ver mi Trabajo</a>
+                </div>
             </div>
-            <div class="contact-links">
-                <a href="https://www.instagram.com/benj_7_?igsh=NW9jYjY2eXdjZGs5&utm_source=qr" target="_blank">Instagram</a>
-                <a href="mailto:pierobenjaminzegarra@gmail.com">Email</a>
-                <a href="https://wa.me/51964593718" target="_blank">WhatsApp</a>
+
+            <div class="card" style="align-items: center; text-align: center;">
+                <img src="https://ui-avatars.com/api/?name=Benja+Edits&background=00ff88&color=000" alt="Benja" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 15px;">
+                <h3 style="color: white; margin-bottom: 5px;">Benja Edits</h3>
+                <p style="margin-bottom: 15px;">VFX & 3D Artist</p>
+                <a href="https://www.instagram.com/benj_7_?igsh=NW9jYjY2eXdjZGs5&utm_source=qr" target="_blank" style="color: var(--secondary); text-decoration: none; font-weight: bold; margin-bottom: 10px;">Instagram ↗</a>
+                <a href="mailto:pierobenjaminzegarra@gmail.com" style="color: var(--text-dim); text-decoration: none;">Email ↗</a>
             </div>
-        </div> <div class="card col-2 row-2" style="background: #000; padding: 0; border: none;">
-            <div class="video-wrapper main-video">
+        </div>
+
+        <h2>He trabajado con</h2>
+        <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <div class="card flex-center" style="flex-direction: row; justify-content: flex-start; padding: 15px;">
+                <div class="avatar" style="background: var(--gradient-1);"></div>
+                <div>
+                    <h3 style="color: white; margin: 0; font-size: 1rem;">Artista / Creador 1</h3>
+                    <p style="font-size: 0.8rem; color: var(--accent);">✓ Cliente Activo</p>
+                </div>
+            </div>
+            <div class="card flex-center" style="flex-direction: row; justify-content: flex-start; padding: 15px;">
+                <div class="avatar" style="background: var(--gradient-2);"></div>
+                <div>
+                    <h3 style="color: white; margin: 0; font-size: 1rem;">Agencia / Creador 2</h3>
+                    <p style="font-size: 0.8rem; color: var(--accent);">✓ Cliente Activo</p>
+                </div>
+            </div>
+            <div class="card flex-center" style="flex-direction: row; justify-content: flex-start; padding: 15px;">
+                <div class="avatar" style="background: #333;"></div>
+                <div>
+                    <h3 style="color: white; margin: 0; font-size: 1rem;">Marca / Creador 3</h3>
+                    <p style="font-size: 0.8rem; color: var(--accent);">✓ Proyecto Entregado</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="servicios">Servicios</h2>
+        <div class="bento-grid">
+            <div class="card">
+                <h3>📱 Reels / Shorts</h3>
+                <p>Ritmo dinámico, cortes precisos, subtítulos llamativos, SFX y edición enfocada 100% en la retención del usuario.</p>
+            </div>
+            <div class="card">
+                <h3>🎬 YouTube Long-Form</h3>
+                <p>Storytelling, estructura de guion, ritmo, limpieza de audio y motion graphics para videos largos profesionales.</p>
+            </div>
+            <div class="card">
+                <h3>⚡ VFX & Motion Graphics</h3>
+                <p>Animaciones avanzadas en After Effects, trackeos, corrección de color y efectos visuales nivel cine.</p>
+            </div>
+            <div class="card">
+                <h3>🧊 3D Animation</h3>
+                <p>Modelado y renderizado en Blender. Creación de entornos virtuales e integración 3D con escenarios reales.</p>
+            </div>
+        </div>
+
+        <h2 id="portfolio">Portafolio</h2>
+        <div class="bento-grid">
+            
+            <div class="card col-2 row-2" style="padding: 0; background: #000; border: none;">
                 <iframe src="https://www.youtube.com/embed/8dB_WYUcQSY" title="Showreel"></iframe>
             </div>
-        </div>
 
-        <div class="card">
-            <h2>Software</h2>
-            <ul style="padding-left: 20px; color: var(--text-dim); margin: 0; line-height: 1.8;">
-                <li>After Effects</li>
-                <li>Blender 3D</li>
-                <li>Premiere Pro</li>
-                <li>Photoshop</li>
-            </ul>
-        </div>
-
-        <div class="card" style="justify-content: center; align-items: center; text-align: center;">
-            <h2 style="font-size: 2.5rem; color: var(--accent); margin: 0;">+10</h2>
-            <p>Proyectos Editados</p>
-        </div>
-
-        <div class="card col-2">
-            <span class="badge">VFX BREAKDOWN</span>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" title="Proyecto 1"></iframe>
+            <div class="card col-2">
+                <span class="badge" style="position: absolute; top: 15px; left: 15px; z-index: 10; background: rgba(0,0,0,0.8);">EDICIÓN MUSICAL</span>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_1"></iframe>
+                </div>
+                <h3 style="color: white;">Travis Scott Style Edit</h3>
+                <p>Edición rítmica y corrección de color agresiva.</p>
             </div>
-            <h3 style="margin-top: 15px; font-weight: normal; margin-bottom: 0;">Travis Scott Style Edit</h3>
+
+            <div class="card col-2">
+                <span class="badge" style="position: absolute; top: 15px; left: 15px; z-index: 10; background: rgba(0,0,0,0.8);">ANIMACIÓN 3D</span>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_2"></iframe>
+                </div>
+                <h3 style="color: white;">Blender Room Render</h3>
+                <p>Escenario creado desde cero con iluminación neón.</p>
+            </div>
         </div>
 
-        <div class="card col-2">
-            <span class="badge">3D ANIMATION</span>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="Proyecto 2"></iframe>
+        <h2 id="testimonios">Testimonios</h2>
+        <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-bottom: 60px;">
+            <div class="card">
+                <div class="stars">★★★★★</div>
+                <p style="color: white; font-style: italic; margin-bottom: 15px;">"La calidad de edición superó lo que esperaba. Muy profesional y entiende perfectamente el ritmo que necesita un video."</p>
+                <div class="flex-center">
+                    <div class="avatar" style="width: 40px; height: 40px;"></div>
+                    <div>
+                        <h4 style="margin: 0; font-size: 0.9rem; color: white;">Cliente Satisfecho</h4>
+                        <p style="font-size: 0.8rem;">Shorts / Reels</p>
+                    </div>
+                </div>
             </div>
-            <h3 style="margin-top: 15px; font-weight: normal; margin-bottom: 0;">Blender Room Render</h3>
+
+            <div class="card">
+                <div class="stars">★★★★★</div>
+                <p style="color: white; font-style: italic; margin-bottom: 15px;">"Entendió perfecto el estilo urbano que buscaba. Me entregó variantes y el video quedó listo para publicar sin correcciones."</p>
+                <div class="flex-center">
+                    <div class="avatar" style="width: 40px; height: 40px;"></div>
+                    <div>
+                        <h4 style="margin: 0; font-size: 0.9rem; color: white;">Artista Musical</h4>
+                        <p style="font-size: 0.8rem;">Video Musical</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 40px 0; border-top: 1px solid var(--card-border); margin-top: 40px;">
+            <h2 style="margin-top: 0;">¿Listo para elevar tu contenido?</h2>
+            <a href="https://wa.me/51964593718" target="_blank" class="btn" style="margin-top: 10px; padding: 15px 30px; font-size: 1.1rem;">Escríbeme por WhatsApp</a>
+            <p style="margin-top: 30px; font-size: 0.8rem;">© 2024 Benja Edits. Todos los derechos reservados.</p>
         </div>
 
     </div>
