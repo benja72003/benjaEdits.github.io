@@ -5,212 +5,252 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Benja Edits | Visuales que Suenan</title>
     <style>
-        /* --- VARIABLES CYBERPUNK --- */
+        /* --- CONFIGURACIÓN DE ESTILO CYBERPUNK --- */
         :root {
             --bg-color: #050505;
-            --card-bg: rgba(255, 255, 255, 0.05); 
-            --card-border: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.03); 
+            --card-border: rgba(255, 255, 255, 0.08);
             --text-main: #ffffff;
             --text-dim: #999999;
             --accent: #00ff88; 
             --accent-glow: rgba(0, 255, 136, 0.3);
+            --secondary: #bc13fe;
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: 'Inter', system-ui, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(121, 40, 202, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(0, 255, 136, 0.08) 0%, transparent 50%);
         }
 
-        /* --- CONTENEDOR GRID (Horizontal en PC, Vertical en Móvil) --- */
-        .bento-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            gap: 20px;
-            /* Móvil: 1 columna */
-            grid-template-columns: 1fr; 
+        /* --- NAVEGACIÓN --- */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--card-border);
+            z-index: 1000; display: flex; justify-content: center; padding: 15px 0;
         }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
 
-        /* Tablet: 2 columnas */
-        @media (min-width: 768px) {
-            .bento-container { grid-template-columns: repeat(2, 1fr); }
-        }
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container { max-width: 1200px; margin: 80px auto 0; padding: 20px; }
 
-        /* PC: 3 columnas (Para que no sea tan vertical) */
-        @media (min-width: 1024px) {
-            .bento-container { grid-template-columns: repeat(3, 1fr); }
-            .col-span-2 { grid-column: span 2; }
-            .row-span-2 { grid-row: span 2; }
-        }
+        /* --- BENTO GRID LAYOUT --- */
+        .bento-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
+        @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .bento-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        /* --- TARJETAS --- */
+        /* --- TARJETAS GLASSMORPHISM --- */
         .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 25px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 24px; padding: 25px;
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s ease; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: center;
         }
-
         .card:hover {
-            border-color: var(--accent);
-            box-shadow: 0 5px 30px -10px var(--accent-glow);
-            transform: translateY(-3px);
+            transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 40px -10px var(--accent-glow);
         }
 
-        /* --- TEXTOS --- */
-        h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin: 0; color: white; letter-spacing: -1px; }
-        h2 { font-size: 1.5rem; margin: 0 0 15px 0; color: var(--accent); }
-        p { color: var(--text-dim); line-height: 1.5; margin-top: 10px; }
+        /* TAMAÑOS (PC) */
+        @media (min-width: 1024px) {
+            .col-2 { grid-column: span 2; }
+            .col-3 { grid-column: span 3; }
+            .col-4 { grid-column: span 4; }
+            .row-2 { grid-row: span 2; }
+        }
+
+        /* --- TIPOGRAFÍA --- */
+        h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin: 0 0 10px; line-height: 1.1; letter-spacing: -1px; }
+        h2 { font-size: 2rem; margin: 40px 0 20px; color: var(--text-main); font-weight: 600; letter-spacing: -1px;}
+        h3 { font-size: 1.2rem; margin: 0 0 10px; color: var(--accent); }
+        p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; margin: 0; }
         
         .badge {
-            display: inline-block; padding: 5px 12px; border-radius: 50px;
+            display: inline-block; padding: 6px 14px; border-radius: 50px;
             background: rgba(0, 255, 136, 0.1); border: 1px solid var(--accent);
             color: var(--accent); font-size: 0.75rem; font-weight: bold; margin-bottom: 15px; width: fit-content;
         }
 
-        .links a { color: white; text-decoration: none; margin-right: 15px; font-weight: 500; transition: color 0.3s; }
-        .links a:hover { color: var(--accent); }
+        /* --- BOTONES --- */
+        .btn {
+            display: inline-block; padding: 12px 24px; border-radius: 12px;
+            background: var(--accent); color: #000; text-decoration: none;
+            font-weight: bold; font-size: 0.95rem; transition: all 0.3s;
+            text-align: center; border: none; cursor: pointer;
+        }
+        .btn:hover { background: #00cc6a; box-shadow: 0 0 20px var(--accent-glow); transform: scale(1.02); }
+        .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--card-border); }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: var(--text-main); box-shadow: none; color: white;}
 
-        /* --- MINIATURAS DE VIDEO (Botones para abrir el Modal) --- */
+        /* --- MINIATURAS DE VIDEO PARA EL PORTAFOLIO --- */
         .video-thumbnail {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background-color: #111;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--card-border);
-            transition: all 0.3s ease;
+            width: 100%; aspect-ratio: 16 / 9; background-color: #111;
+            border-radius: 12px; overflow: hidden; position: relative;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--card-border); transition: all 0.3s ease;
+            margin-bottom: 15px;
         }
-
-        .video-thumbnail:hover {
-            border-color: var(--accent);
-        }
-
+        .video-thumbnail:hover { border-color: var(--accent); }
         .play-btn {
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            border: 2px solid white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            z-index: 2;
+            background: rgba(0, 0, 0, 0.6); color: white; border: 2px solid white;
+            border-radius: 50%; width: 50px; height: 50px; display: flex;
+            align-items: center; justify-content: center; font-size: 1.5rem;
+            transition: all 0.3s ease; z-index: 2;
         }
-
         .video-thumbnail:hover .play-btn {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: black;
-            transform: scale(1.1);
+            background: var(--accent); border-color: var(--accent); color: black; transform: scale(1.1);
         }
 
         /* --- VENTANA EMERGENTE (MODAL) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(5px);
-            display: none; /* Oculto por defecto */
-            align-items: center; justify-content: center;
-            z-index: 9999;
-            opacity: 0; transition: opacity 0.3s ease;
+            background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(5px);
+            display: none; align-items: center; justify-content: center;
+            z-index: 9999; opacity: 0; transition: opacity 0.3s ease;
         }
-
         .modal-overlay.active { display: flex; opacity: 1; }
-
         .modal-content {
-            width: 90%; max-width: 1000px;
-            aspect-ratio: 16 / 9;
-            background: #000;
-            border-radius: 16px;
-            position: relative;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 0 40px rgba(0, 255, 136, 0.2);
+            width: 90%; max-width: 1000px; aspect-ratio: 16 / 9;
+            background: #000; border-radius: 16px; position: relative;
+            border: 1px solid var(--card-border); box-shadow: 0 0 40px rgba(0, 255, 136, 0.2);
         }
-
         .modal-content iframe { width: 100%; height: 100%; border-radius: 16px; border: none; }
-
         .close-btn {
-            position: absolute; top: -40px; right: 0;
-            background: none; border: 1px solid rgba(255,255,255,0.3);
-            color: white; font-size: 1rem; padding: 5px 15px;
-            border-radius: 20px; cursor: pointer; transition: all 0.3s;
+            position: absolute; top: -40px; right: 0; background: none; border: 1px solid rgba(255,255,255,0.3);
+            color: white; font-size: 1rem; padding: 5px 15px; border-radius: 20px; cursor: pointer; transition: all 0.3s;
         }
         .close-btn:hover { background: white; color: black; }
 
-        /* Estilos para listas */
-        ul { padding-left: 20px; color: var(--text-dim); }
-        li { margin-bottom: 8px; }
+        /* --- COMPONENTES EXTRAS --- */
+        .avatar { width: 50px; height: 50px; border-radius: 50%; background: #333; margin-right: 15px; object-fit: cover;}
+        .flex-center { display: flex; align-items: center; }
+        .stars { color: #ffd700; margin-bottom: 10px; font-size: 1.2rem;}
     </style>
 </head>
 <body>
 
-    <div class="bento-container">
+    <nav>
+        <div class="nav-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#portfolio">Portafolio</a>
+            <a href="#testimonios">Testimonios</a>
+        </div>
+    </nav>
+
+    <div class="container">
         
-        <div class="card col-span-2">
-            <span class="badge">DISPONIBLE PARA TRABAJAR</span>
-            <h1>BENJA</h1>
-            <p>Visuales que suenan. Editor VFX & 3D Artist.</p>
-            <div class="links" style="margin-top: 20px;">
-                <a href="https://www.instagram.com/benj_7_?igsh=NW9jYjY2eXdjZGs5&utm_source=qr" target="_blank">Instagram</a>
-                <a href="mailto:pierobenjaminzegarra@gmail.com">Email</a>
-                <a href="https://wa.me/51964593718" target="_blank">WhatsApp</a>
+        <div id="inicio" class="bento-grid">
+            <div class="card col-3">
+                <span class="badge">DISPONIBLE PARA TRABAJAR 🟢</span>
+                <h1>Transformo videos aburridos en <br><span style="color: var(--accent);">piezas cinematográficas.</span></h1>
+                <p style="font-size: 1.1rem; max-width: 600px; margin-bottom: 25px;">
+                    Editor de video especializado en estética Urbana/Trap, VFX y 3D. Convierto tus ideas en experiencias visuales que conectan, retienen y generan resultados reales.
+                </p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="https://wa.me/51964593718" target="_blank" class="btn">Cotizar Proyecto</a>
+                    <a href="#portfolio" class="btn btn-outline">Ver mi Trabajo</a>
+                </div>
+            </div>
+
+            <div class="card" style="align-items: center; text-align: center;">
+                <img src="https://ui-avatars.com/api/?name=Benja+Edits&background=00ff88&color=000" alt="Benja" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 15px;">
+                <h3 style="color: white; margin-bottom: 5px;">Benja Edits</h3>
+                <p style="margin-bottom: 15px;">VFX & 3D Artist</p>
+                <a href="https://www.instagram.com/benj_7_?igsh=NW9jYjY2eXdjZGs5&utm_source=qr" target="_blank" style="color: var(--secondary); text-decoration: none; font-weight: bold; margin-bottom: 10px;">Instagram ↗</a>
+                <a href="mailto:pierobenjaminzegarra@gmail.com" style="color: var(--text-dim); text-decoration: none;">Email ↗</a>
             </div>
         </div>
 
-        <div class="card">
-            <h2>Software</h2>
-            <ul>
-                <li>After Effects</li>
-                <li>Blender 3D</li>
-                <li>Premiere Pro</li>
-                <li>Photoshop</li>
-            </ul>
+        <h2>He trabajado con</h2>
+        <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <div class="card flex-center" style="flex-direction: row; justify-content: flex-start; padding: 15px;">
+                <div class="avatar" style="background: var(--gradient-1);"></div>
+                <div><h3 style="color: white; margin: 0; font-size: 1rem;">Artista / Creador 1</h3><p style="font-size: 0.8rem; color: var(--accent);">✓ Cliente Activo</p></div>
+            </div>
+            <div class="card flex-center" style="flex-direction: row; justify-content: flex-start; padding: 15px;">
+                <div class="avatar" style="background: var(--gradient-2);"></div>
+                <div><h3 style="color: white; margin: 0; font-size: 1rem;">Agencia / Creador 2</h3><p style="font-size: 0.8rem; color: var(--accent);">✓ Cliente Activo</p></div>
+            </div>
+            <div class="card flex-center" style="flex-direction: row; justify-content: flex-start; padding: 15px;">
+                <div class="avatar" style="background: #333;"></div>
+                <div><h3 style="color: white; margin: 0; font-size: 1rem;">Marca / Creador 3</h3><p style="font-size: 0.8rem; color: var(--accent);">✓ Proyecto Entregado</p></div>
+            </div>
         </div>
 
-        <div class="card col-span-2 row-span-2">
-            <h2>Showreel 2024</h2>
-            <div class="video-thumbnail" onclick="abrirVideo('8dB_WYUcQSY')">
-                <div class="play-btn">▶</div>
-            </div>
-            <p>Resumen de mis mejores trabajos de edición urbana y VFX.</p>
+        <h2 id="servicios">Servicios</h2>
+        <div class="bento-grid">
+            <div class="card"><h3>📱 Reels / Shorts</h3><p>Ritmo dinámico, cortes precisos, subtítulos llamativos, SFX y edición enfocada en la retención.</p></div>
+            <div class="card"><h3>🎬 YouTube Long-Form</h3><p>Storytelling, estructura de guion, ritmo, limpieza de audio y motion graphics.</p></div>
+            <div class="card"><h3>⚡ VFX & Motion Graphics</h3><p>Animaciones avanzadas, trackeos, corrección de color y efectos visuales nivel cine.</p></div>
+            <div class="card"><h3>🧊 3D Animation</h3><p>Modelado y renderizado en Blender. Entornos virtuales e integración 3D.</p></div>
         </div>
 
-        <div class="card">
-            <h3 style="margin:0 0 10px 0; color: white;">VFX Breakdown</h3>
-            <div class="video-thumbnail" onclick="abrirVideo('VIDEO_ID_1')">
-                <div class="play-btn">▶</div>
+        <h2 id="portfolio">Portafolio</h2>
+        <div class="bento-grid">
+            
+            <div class="card col-2 row-2" style="justify-content: flex-start;">
+                <span class="badge">SHOWREEL 2024</span>
+                <div class="video-thumbnail" style="height: 100%; margin-bottom: 0;" onclick="abrirVideo('8dB_WYUcQSY')">
+                    <div class="play-btn">▶</div>
+                </div>
             </div>
-            <p style="font-size: 0.85rem;">Travis Scott Style Edit</p>
+
+            <div class="card col-2">
+                <span class="badge" style="position: absolute; top: 15px; left: 15px; z-index: 10; background: rgba(0,0,0,0.8);">EDICIÓN MUSICAL</span>
+                <div class="video-thumbnail" onclick="abrirVideo('VIDEO_ID_1')">
+                    <div class="play-btn">▶</div>
+                </div>
+                <h3 style="color: white; margin-bottom: 5px;">Travis Scott Style Edit</h3>
+                <p>Edición rítmica y corrección de color agresiva.</p>
+            </div>
+
+            <div class="card col-2">
+                <span class="badge" style="position: absolute; top: 15px; left: 15px; z-index: 10; background: rgba(0,0,0,0.8);">ANIMACIÓN 3D</span>
+                <div class="video-thumbnail" onclick="abrirVideo('VIDEO_ID_2')">
+                    <div class="play-btn">▶</div>
+                </div>
+                <h3 style="color: white; margin-bottom: 5px;">Blender Room Render</h3>
+                <p>Escenario creado desde cero con iluminación neón.</p>
+            </div>
         </div>
 
-        <div class="card">
-            <h3 style="margin:0 0 10px 0; color: white;">3D Animation</h3>
-            <div class="video-thumbnail" onclick="abrirVideo('VIDEO_ID_2')">
-                <div class="play-btn">▶</div>
+        <h2 id="testimonios">Testimonios</h2>
+        <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-bottom: 60px;">
+            <div class="card">
+                <div class="stars">★★★★★</div>
+                <p style="color: white; font-style: italic; margin-bottom: 15px;">"La calidad de edición superó lo que esperaba. Muy profesional y entiende perfectamente el ritmo que necesita un video."</p>
+                <div class="flex-center">
+                    <div class="avatar" style="width: 40px; height: 40px;"></div>
+                    <div><h4 style="margin: 0; font-size: 0.9rem; color: white;">Cliente Satisfecho</h4><p style="font-size: 0.8rem;">Shorts / Reels</p></div>
+                </div>
             </div>
-            <p style="font-size: 0.85rem;">Blender Room Render</p>
+            <div class="card">
+                <div class="stars">★★★★★</div>
+                <p style="color: white; font-style: italic; margin-bottom: 15px;">"Entendió perfecto el estilo urbano que buscaba. Me entregó variantes y el video quedó listo para publicar."</p>
+                <div class="flex-center">
+                    <div class="avatar" style="width: 40px; height: 40px;"></div>
+                    <div><h4 style="margin: 0; font-size: 0.9rem; color: white;">Artista Musical</h4><p style="font-size: 0.8rem;">Video Musical</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 40px 0; border-top: 1px solid var(--card-border); margin-top: 40px;">
+            <h2 style="margin-top: 0;">¿Listo para elevar tu contenido?</h2>
+            <a href="https://wa.me/51964593718" target="_blank" class="btn" style="margin-top: 10px; padding: 15px 30px; font-size: 1.1rem;">Escríbeme por WhatsApp</a>
+            <p style="margin-top: 30px; font-size: 0.8rem;">© 2024 Benja Edits. Todos los derechos reservados.</p>
         </div>
 
     </div>
@@ -226,30 +266,20 @@
         const modal = document.getElementById('videoModal');
         const iframe = document.getElementById('modalIframe');
 
-        // Función para abrir el video
         function abrirVideo(youtubeId) {
-            // Añadimos autoplay=1 para que el video empiece a reproducirse solo al abrir la ventana
             iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
             modal.style.display = 'flex';
-            // Pequeño retraso para la animación de opacidad
             setTimeout(() => { modal.style.opacity = '1'; }, 10);
-            
-            // Evitar que el fondo haga scroll
             document.body.style.overflow = 'hidden';
         }
 
-        // Función para cerrar el video
         function cerrarVideo(event) {
-            // Si el clic fue dentro del iframe (el video en sí), no cerramos
             if(event.target === iframe) return;
-
             modal.style.opacity = '0';
             setTimeout(() => {
                 modal.style.display = 'none';
-                iframe.src = ''; // Limpiamos el src para detener el audio del video
-            }, 300); // Esperamos a que termine la animación
-
-            // Restaurar el scroll del fondo
+                iframe.src = ''; 
+            }, 300);
             document.body.style.overflow = 'auto';
         }
     </script>
