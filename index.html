@@ -26,9 +26,63 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            /* Fondo de estrellas animado */
             background-image: 
                 radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.08) 0%, transparent 50%),
                 radial-gradient(circle at 85% 30%, rgba(0, 255, 136, 0.08) 0%, transparent 50%);
+        }
+
+        /* FONDO DE ESTRELLAS ANIMADO (similar a Spotify) */
+        #stars, #stars2, #stars3 {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: transparent;
+        }
+
+        #stars {
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50px 160px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 220px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 150px 280px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 210px 340px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 280px 410px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 350px 480px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 420px 550px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 500px 620px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 1000px 1200px;
+            animation: starsScroll 200s linear infinite;
+        }
+
+        #stars2 {
+            background-image: 
+                radial-gradient(2px 2px at 120px 130px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 320px 330px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 520px 530px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 720px 730px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 920px 930px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 1120px 1130px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 1200px 1400px;
+            animation: starsScroll 100s linear infinite;
+        }
+
+        #stars3 {
+            background-image: 
+                radial-gradient(3px 3px at 220px 230px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 620px 630px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1020px 1030px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 1400px 1600px;
+            animation: starsScroll 50s linear infinite;
+        }
+
+        @keyframes starsScroll {
+            from { background-position: 0 0; }
+            to { background-position: 0 -1600px; }
         }
 
         /* --- NAVEGACIÓN --- */
@@ -101,6 +155,9 @@
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             border: 1px solid var(--card-border); transition: all 0.3s ease;
             margin-bottom: 15px;
+            /* Imagen de portada del video */
+            background-size: cover;
+            background-position: center;
         }
         .video-thumbnail:hover { border-color: var(--accent); }
         .play-btn {
@@ -141,12 +198,15 @@
 </head>
 <body>
 
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+
     <nav>
         <div class="nav-links">
             <a href="#inicio">Inicio</a>
             <a href="#servicios">Servicios</a>
             <a href="#portfolio">Portafolio</a>
-            <a href="#testimonios">Testimonios</a>
         </div>
     </nav>
 
@@ -174,28 +234,12 @@
             </div>
         </div>
 
-        <h2>He trabajado con</h2>
-        <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-            <div class="card flex-center" style="flex-direction: row; justify-content: flex-start; padding: 15px;">
-                <div class="avatar" style="background: var(--gradient-1);"></div>
-                <div><h3 style="color: white; margin: 0; font-size: 1rem;">Artista / Creador 1</h3><p style="font-size: 0.8rem; color: var(--accent);">✓ Cliente Activo</p></div>
-            </div>
-            <div class="card flex-center" style="flex-direction: row; justify-content: flex-start; padding: 15px;">
-                <div class="avatar" style="background: var(--gradient-2);"></div>
-                <div><h3 style="color: white; margin: 0; font-size: 1rem;">Agencia / Creador 2</h3><p style="font-size: 0.8rem; color: var(--accent);">✓ Cliente Activo</p></div>
-            </div>
-            <div class="card flex-center" style="flex-direction: row; justify-content: flex-start; padding: 15px;">
-                <div class="avatar" style="background: #333;"></div>
-                <div><h3 style="color: white; margin: 0; font-size: 1rem;">Marca / Creador 3</h3><p style="font-size: 0.8rem; color: var(--accent);">✓ Proyecto Entregado</p></div>
-            </div>
-        </div>
-
         <h2 id="servicios">Servicios</h2>
         <div class="bento-grid">
             <div class="card"><h3>📱 Reels / Shorts</h3><p>Ritmo dinámico, cortes precisos, subtítulos llamativos, SFX y edición enfocada en la retención.</p></div>
             <div class="card"><h3>🎬 YouTube Long-Form</h3><p>Storytelling, estructura de guion, ritmo, limpieza de audio y motion graphics.</p></div>
             <div class="card"><h3>⚡ VFX & Motion Graphics</h3><p>Animaciones avanzadas, trackeos, corrección de color y efectos visuales nivel cine.</p></div>
-            <div class="card"><h3>🧊 3D Animation</h3><p>Modelado y renderizado en Blender. Entornos virtuales e integración 3D.</p></div>
+            <div class="card"><h3>🧊 Motion Graphics</h3><p></p></div>
         </div>
 
         <h2 id="portfolio">Portafolio</h2>
@@ -203,14 +247,14 @@
             
             <div class="card col-2 row-2" style="justify-content: flex-start;">
                 <span class="badge">SHOWREEL 2024</span>
-                <div class="video-thumbnail" style="height: 100%; margin-bottom: 0;" onclick="abrirVideo('8dB_WYUcQSY')">
+                <div class="video-thumbnail" style="height: 100%; margin-bottom: 0; background-image: url('https://img.youtube.com/vi/8dB_WYUcQSY/maxresdefault.jpg'); background-size: cover;" onclick="abrirVideo('8dB_WYUcQSY')">
                     <div class="play-btn">▶</div>
                 </div>
             </div>
 
             <div class="card col-2">
-                <span class="badge" style="position: absolute; top: 15px; left: 15px; z-index: 10; background: rgba(0,0,0,0.8);">EDICIÓN MUSICAL</span>
-                <div class="video-thumbnail" onclick="abrirVideo('VIDEO_ID_1')">
+                <span class="badge" style="position: absolute; top: 15px; left: 15px; z-index: 10; background: rgba(0,0,0,0.8);">VFX BREAKDOWN</span>
+                <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg'); background-size: cover;" onclick="abrirVideo('dQw4w9WgXcQ')">
                     <div class="play-btn">▶</div>
                 </div>
                 <h3 style="color: white; margin-bottom: 5px;">Travis Scott Style Edit</h3>
@@ -218,32 +262,12 @@
             </div>
 
             <div class="card col-2">
-                <span class="badge" style="position: absolute; top: 15px; left: 15px; z-index: 10; background: rgba(0,0,0,0.8);">ANIMACIÓN 3D</span>
-                <div class="video-thumbnail" onclick="abrirVideo('VIDEO_ID_2')">
+                <span class="badge" style="position: absolute; top: 15px; left: 15px; z-index: 10; background: rgba(0,0,0,0.8);">MOTION GRAPHICS</span>
+                <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/y8Kyi0WNg40/maxresdefault.jpg'); background-size: cover;" onclick="abrirVideo('y8Kyi0WNg40')">
                     <div class="play-btn">▶</div>
                 </div>
-                <h3 style="color: white; margin-bottom: 5px;">Blender Room Render</h3>
-                <p>Escenario creado desde cero con iluminación neón.</p>
-            </div>
-        </div>
-
-        <h2 id="testimonios">Testimonios</h2>
-        <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-bottom: 60px;">
-            <div class="card">
-                <div class="stars">★★★★★</div>
-                <p style="color: white; font-style: italic; margin-bottom: 15px;">"La calidad de edición superó lo que esperaba. Muy profesional y entiende perfectamente el ritmo que necesita un video."</p>
-                <div class="flex-center">
-                    <div class="avatar" style="width: 40px; height: 40px;"></div>
-                    <div><h4 style="margin: 0; font-size: 0.9rem; color: white;">Cliente Satisfecho</h4><p style="font-size: 0.8rem;">Shorts / Reels</p></div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="stars">★★★★★</div>
-                <p style="color: white; font-style: italic; margin-bottom: 15px;">"Entendió perfecto el estilo urbano que buscaba. Me entregó variantes y el video quedó listo para publicar."</p>
-                <div class="flex-center">
-                    <div class="avatar" style="width: 40px; height: 40px;"></div>
-                    <div><h4 style="margin: 0; font-size: 0.9rem; color: white;">Artista Musical</h4><p style="font-size: 0.8rem;">Video Musical</p></div>
-                </div>
+                <h3 style="color: white; margin-bottom: 5px;"></h3>
+                <p></p>
             </div>
         </div>
 
